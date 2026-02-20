@@ -1,0 +1,4 @@
+# file: C:\Users\sonwa\Downloads\CIPHER\cipher\feature_fusion.py
+# hypothesis_version: 6.148.11
+
+[0.0, 0.05, 0.08, 0.1, 0.15, 0.3, 0.4, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 1.0, 2.2, 2.3, 2.5, 2.8, 3.0, 5.0, 8.0, 10.0, 12.0, 15.0, 20.0, 25.0, 30.0, 100, 'SHA-256', 'attic', 'balcony', 'basement', 'bathroom', 'bedroom', 'closet', 'constant', 'dining_room', 'entryway', 'fusion_confidence', 'garage', 'hallway', 'kitchen', 'laundry_room', 'library', 'living_room', 'low_confidence', 'office', 'pantry', 'patio', 'spatial_available', 'storage_room', 'uncertainty_warning', 'unknown', 'utility_room', 'visual_available', 'workshop']
