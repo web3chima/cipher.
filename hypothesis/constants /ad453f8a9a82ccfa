@@ -1,0 +1,4 @@
+# file: C:\Users\sonwa\Downloads\CIPHER\cipher\vslam_processor.py
+# hypothesis_version: 6.148.11
+
+[0.0, 0.04, 0.05, 0.08, 0.1, 0.114, 0.12, 0.15, 0.2, 0.25, 0.299, 0.4, 0.55, 0.587, 0.6, 0.65, 0.7, 0.75, 1.0, 100.0, 200.0, 255.0, 400.0, 500.0, 100, 128, 200, 255, 'attic', 'balcony', 'basement', 'bathroom', 'bedroom', 'closet', 'constant', 'dining_room', 'entryway', 'garage', 'hallway', 'kitchen', 'laundry_room', 'library', 'living_room', 'office', 'pantry', 'patio', 'storage_room', 'utility_room', 'workshop']
