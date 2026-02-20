@@ -1,0 +1,4 @@
+# file: C:\Users\sonwa\Downloads\CIPHER\cipher\lidar_processor.py
+# hypothesis_version: 6.148.11
+
+[-1.0, 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.65, 0.7, 0.8, 1.0, 2.5, 3.0, 8.0, 10.0, 12.0, 15.0, 20.0, 25.0, 30.0, 50.0, 1000.0, 128, 'Point cloud is empty', 'attic', 'balcony', 'basement', 'bathroom', 'bedroom', 'closet', 'dining_room', 'entryway', 'garage', 'hallway', 'kitchen', 'laundry_room', 'library', 'living_room', 'office', 'pantry', 'patio', 'storage_room', 'utility_room', 'workshop']
