@@ -1,0 +1,4 @@
+# file: C:\Users\sonwa\Downloads\CIPHER\cipher\models.py
+# hypothesis_version: 6.148.11
+
+[0.0, 1.0, 500, 2000, 2048, 'BLAKE3', 'CameraFrame', 'CipherConfig', 'FusedFeatures', 'Groth16', 'LocationHash', 'LocationResult', 'PLONK', 'PointCloud', 'ProcessingResult', 'Proof', 'SHA-256', 'SHA-3', 'SpatialFeatures', 'TransmissionResult', 'VerificationResult', 'VisualFeatures', 'algorithm', 'alternative_labels', 'camera_id', 'classification', 'coarse', 'combined_signature', 'confidence', 'descriptors', 'device_id', 'error_message', 'fine', 'fusion_confidence', 'geometric_signature', 'hash_value', 'image', 'immediate_purge', 'intensities', 'is_valid', 'keypoints', 'label', 'location_hash', 'medium', 'metadata', 'object_positions', 'points', 'proof', 'proof_data', 'protocol', 'resolution', 'room_dimensions', 'sensor_id', 'server_response', 'session_based', 'spatial', 'success', 'time_based', 'timestamp', 'verifier_id', 'visual', 'visual_signature', 'wall_positions']
