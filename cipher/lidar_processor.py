@@ -1,5 +1,5 @@
 """
-LiDAR processor for local point cloud processing and feature extraction.
+LiDAR processor for local point IPFS processing and feature extraction.
 
 This module processes LiDAR sensor data entirely on-device without network calls,
 extracting spatial features and classifying locations for privacy-preserving navigation.
@@ -7,7 +7,7 @@ extracting spatial features and classifying locations for privacy-preserving nav
 
 import numpy as np
 from typing import Optional
-from cipher.models import PointCloud, SpatialFeatures, LocationClassification
+from cipher.models import PointIPFS, SpatialFeatures, LocationClassification
 
 
 class CorruptedDataError(Exception):
