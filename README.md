@@ -14,7 +14,8 @@ tests/
     ├── __init__.py
     └── test_serialization_properties.py  # Serialization round-trip tests
 ```
-Robot
+```
+Robot/
   └─ LiDARProcessor / VSLAMProcessor  
   └─ FeatureFusion                   
   └─ LurkProver.generate_proof()     
@@ -33,7 +34,7 @@ IPFS (Helia)
        ▼
 FVM CipherLocationRegistry.submitProof(a,b,c, publicSignals, CID)
 
-
+```
 ## Installation
 
 ```bash
