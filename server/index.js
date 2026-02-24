@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const contactRoutes = require("./routes/contact");
+const proofRoutes   = require("./routes/proof");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -10,7 +11,7 @@ const PORT = process.env.PORT || 3001;
 app.use(
   cors({
     origin: process.env.FRONTEND_URL || "http://localhost:5173",
-    methods: ["POST"],
+    methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
   })
 );
@@ -18,6 +19,7 @@ app.use(
 app.use(express.json());
 
 app.use("/api/contact", contactRoutes);
+app.use("/api/proof",   proofRoutes);
 
 app.get("/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
