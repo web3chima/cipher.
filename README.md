@@ -12,7 +12,23 @@ tests/
 ├── strategies.py        # Hypothesis strategies for property-based testing
 └── property/
     ├── __init__.py
-    └── test_serialization_properties.py  # Serialization round-trip tests
+    └── test_serialization_properties.py  # Serialization round-trip tests                              
+circuits/
+│   ├── location_proof.lurk              ← single-sensor proof (LiDAR or VSLAM)
+│   ├── fused_location_proof.lurk        ← weighted LiDAR + VSLAM fusion proof
+│   └── lidar_scan_proof.lurk            ← incremental Nova IVC over point cloud
+├── contracts/
+│   ├── Groth16Verifier.sol              ← BN254 pairing verifier (fill VK after setup)
+│   └── CipherLocationRegistry.sol       ← FVM registry — stores CID + verified hash
+├── cipher/
+│   └── zkp_lurk_prover.py              ← Python prover: quantise → witness → Nova → Groth16
+├── scripts/
+│   └── deploy.js                        ← Hardhat deploy to FVM Calibration/Mainnet
+└── hardhat.config.js                    ← FVM network config (chainId 314159 / 314)
+
+cipher./server/services/
+└── ipfsService.js                       ← Helia IPFS node: storeProof() / fetchProof()
+
 ```
 ```
 Robot/
