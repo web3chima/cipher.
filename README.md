@@ -1,7 +1,8 @@
 # Cipher: Privacy-Preserving Robotics Navigation System
 A privacy-preserving robotics navigation system that applies Zero Knowledge Proofs (ZKPs) to robot sensor data, enabling verifiable location assertions without transmitting sensitive spatial data.
 
-Project Structure
+## Project Structure
+'''
 cipher/
 ├── __init__.py          # Package initialization and exports
 ├── models.py            # Core data models with validation and serialization
@@ -11,7 +12,8 @@ tests/
 └── property/
     ├── __init__.py
     └── test_serialization_properties.py  # Serialization round-trip tests
-Installation
+'''
+## Installation
 pip install -r requirements.txt
 Running Tests
 # Run all tests
