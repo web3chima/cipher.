@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+/* Cipher Design System Tokens */
+:root {
+  --color-primary: #485C11;
+  --color-primary-light: #DFECC6;
+  --color-gray-dark: #6F6F6F;
+  --color-gray-medium: #929292;
+  --color-gray-light: #E9E9E9;
+  --color-background: #FFFFFF;
+  --color-text: #1A1A1A;
+}
+
+/* Custom Tailwind utilities for Cipher */
+@theme {
+  --color-cipher-primary: #485C11;
+  --color-cipher-primary-light: #DFECC6;
+  --color-cipher-gray: #6F6F6F;
+}
