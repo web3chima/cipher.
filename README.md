@@ -51,6 +51,7 @@ IPFS (Helia)
 FVM CipherLocationRegistry.submitProof(a,b,c, publicSignals, CID)
 
 ```
+```
 Trusted Setup (one-time)
   └─ Lit Action: multi-party snarkjs ceremony inside TEE
   └─ Encrypt *.zkey with TPKE → store on IPFS
@@ -71,6 +72,7 @@ FVM Submission (via Lit Action + PKP)
   └─ Lit Action validates: non-zero hash, valid CID, authorized deviceId
   └─ PKP signs submitProof calldata via threshold ECDSA
   └─ CipherLocationRegistry.submitProof() verified on-chain
+```
 
 ## Installation
 
