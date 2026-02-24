@@ -14,6 +14,25 @@ tests/
     ├── __init__.py
     └── test_serialization_properties.py  # Serialization round-trip tests
 ```
+Robot
+  └─ LiDARProcessor / VSLAMProcessor  
+  └─ FeatureFusion                   
+  └─ LurkProver.generate_proof()     
+       │  prove-fused-location.lurk
+       │  Nova IVC folds each scan step
+       │
+       ▼
+  proof.lurk.json  +  public_outputs: [locationHash, timestamp, deviceId]
+       │
+       └─ lurk compress → proof.groth16.json   (for FVM submission)
+       │
+       ▼
+IPFS (Helia)
+  └─ storeProof({ proof, locationHash }) → CID
+       │
+       ▼
+FVM CipherLocationRegistry.submitProof(a,b,c, publicSignals, CID)
+
 
 ## Installation
 
