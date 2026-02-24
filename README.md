@@ -51,6 +51,27 @@ IPFS (Helia)
 FVM CipherLocationRegistry.submitProof(a,b,c, publicSignals, CID)
 
 ```
+Trusted Setup (one-time)
+  └─ Lit Action: multi-party snarkjs ceremony inside TEE
+  └─ Encrypt *.zkey with TPKE → store on IPFS
+ 
+Robot Startup
+  └─ getSessionSigs() against robot's PKP
+  └─ decryptAndCombine(encrypted_zkey) — ACC: entriesForDevice > 0
+  └─ zkey available in memory (TEE), never written to disk
+
+Per Sensor Reading
+  └─ LiDARProcessor / VSLAMProcessor → 128-dim feature vectors (on-device)
+  └─ FeatureFusion → combined_signature
+  └─ LurkProver: Nova IVC → lurk compress (using in-memory zkey) → Groth16 proof
+  └─ Upload proof bundle to IPFS → CID
+
+FVM Submission (via Lit Action + PKP)
+  └─ executeJs(CipherSubmitAction, { a, b, c, publicSignals, ipfsCID })
+  └─ Lit Action validates: non-zero hash, valid CID, authorized deviceId
+  └─ PKP signs submitProof calldata via threshold ECDSA
+  └─ CipherLocationRegistry.submitProof() verified on-chain
+
 ## Installation
 
 ```bash
