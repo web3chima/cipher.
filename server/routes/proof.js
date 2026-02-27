@@ -28,6 +28,8 @@
 const express = require("express");
 const router  = express.Router();
 
+const { requireLicense } = require("../middleware/requireLicense");
+
 const { storeProof }       = require("../services/ipfsService");
 const { submitProofToFVM } = require("../services/fvmService");
 
@@ -69,7 +71,7 @@ function validateProofBody(req, res, next) {
 
 // ─── POST /api/proof/submit ──────────────────────────────────────────────────
 
-router.post("/submit", validateProofBody, async (req, res) => {
+router.post("/submit", requireLicense, validateProofBody, async (req, res) => {
   const { deviceId, locationHash, proof, publicSignals, timestamp } = req.body;
 
   let ipfsCID;

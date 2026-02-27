@@ -14,7 +14,6 @@ export function CipherLanding() {
 
       <CipherHero
         headline="Privacy and Security stack for Environment with Robots."
-        ctaText="GET STARTED"
         heroImage="/hero-image.png"
       />
 

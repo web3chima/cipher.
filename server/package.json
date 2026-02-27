@@ -10,10 +10,14 @@
     "auth": "node config/telegram.js"
   },
   "dependencies": {
+    "@helia/json": "^5.0.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
+    "ethers": "^6.16.0",
     "express": "^4.21.0",
+    "helia": "^6.0.20",
     "input": "^1.0.1",
+    "multiformats": "^13.4.2",
     "telegram": "^2.26.0"
   }
 }

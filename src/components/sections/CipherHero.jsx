@@ -1,10 +1,6 @@
-import { Button } from '../ui/Button';
-
 export function CipherHero({
   headline = 'Privacy and Security stack for Environments with Robots.',
-  ctaText = 'Learn more',
   heroImage,
-  onCtaClick,
 }) {
   return (
     <section className="relative pt-24 pb-0 overflow-hidden bg-white">
@@ -14,9 +10,6 @@ export function CipherHero({
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight mb-8">
             {headline}
           </h1>
-          <Button variant="primary" size="lg" pill onClick={onCtaClick}>
-            {ctaText}
-          </Button>
         </div>
       </div>
 
