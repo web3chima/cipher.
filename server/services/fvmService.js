@@ -30,37 +30,48 @@ const REGISTRY_ABI = [
 ];
 
 /** @type {ethers.Provider | null} */
-let _provider = null;
-/** @type {ethers.Wallet | null} */
-let _wallet   = null;
+let _provider        = null;
 /** @type {ethers.Contract | null} */
-let _registry = null;
+let _registryRead    = null;   // provider-only — for view calls (no private key needed)
+/** @type {ethers.Wallet | null} */
+let _wallet          = null;
+/** @type {ethers.Contract | null} */
+let _registryWrite   = null;   // wallet-signed — for state-changing calls
+
+function getRpc() {
+  return process.env.FVM_CALIBRATION_RPC
+    || "https://api.calibration.node.glif.io/rpc/v1";
+}
+
+function getRegistryAddress() {
+  const addr = process.env.CIPHER_REGISTRY_ADDRESS;
+  if (!addr) throw new Error("fvmService: CIPHER_REGISTRY_ADDRESS is not set in .env");
+  return addr;
+}
 
 /**
- * Lazily initialise provider, wallet, and contract instances.
- * @returns {{ provider: ethers.Provider, wallet: ethers.Wallet, registry: ethers.Contract }}
+ * Read-only contract — only requires CIPHER_REGISTRY_ADDRESS.
+ * Used by getEntry / getTotalEntries.
  */
-function getContracts() {
-  if (_registry) return { provider: _provider, wallet: _wallet, registry: _registry };
+function getReadRegistry() {
+  if (_registryRead) return _registryRead;
+  if (!_provider) _provider = new ethers.JsonRpcProvider(getRpc());
+  _registryRead = new ethers.Contract(getRegistryAddress(), REGISTRY_ABI, _provider);
+  return _registryRead;
+}
 
-  const rpc = process.env.FVM_CALIBRATION_RPC
-    || "https://api.calibration.node.glif.io/rpc/v1";
-
-  const registryAddress = process.env.CIPHER_REGISTRY_ADDRESS;
-  if (!registryAddress) {
-    throw new Error("fvmService: CIPHER_REGISTRY_ADDRESS is not set in .env");
-  }
-
+/**
+ * Write contract — requires CIPHER_REGISTRY_ADDRESS + DEPLOYER_PRIVATE_KEY.
+ * Used by submitProofToFVM.
+ */
+function getWriteRegistry() {
+  if (_registryWrite) return _registryWrite;
   const privateKey = process.env.DEPLOYER_PRIVATE_KEY;
-  if (!privateKey) {
-    throw new Error("fvmService: DEPLOYER_PRIVATE_KEY is not set in .env");
-  }
-
-  _provider = new ethers.JsonRpcProvider(rpc);
-  _wallet   = new ethers.Wallet(privateKey, _provider);
-  _registry = new ethers.Contract(registryAddress, REGISTRY_ABI, _wallet);
-
-  return { provider: _provider, wallet: _wallet, registry: _registry };
+  if (!privateKey) throw new Error("fvmService: DEPLOYER_PRIVATE_KEY is not set in .env");
+  if (!_provider) _provider = new ethers.JsonRpcProvider(getRpc());
+  _wallet        = new ethers.Wallet(privateKey, _provider);
+  _registryWrite = new ethers.Contract(getRegistryAddress(), REGISTRY_ABI, _wallet);
+  return _registryWrite;
 }
 
 /**
@@ -102,7 +113,7 @@ function parseProof(proofJson, publicJson) {
 async function submitProofToFVM({ proofJson, publicJson, ipfsCID }) {
   if (!ipfsCID) throw new Error("fvmService.submitProofToFVM: ipfsCID is required");
 
-  const { registry } = getContracts();
+  const registry = getWriteRegistry();
   const { a, b, c, publicSignals } = parseProof(proofJson, publicJson);
 
   console.log("FVM: submitting proof to CipherLocationRegistry...");
@@ -141,7 +152,7 @@ async function submitProofToFVM({ proofJson, publicJson, ipfsCID }) {
  * @returns {Promise<object>}
  */
 async function getEntry(index) {
-  const { registry } = getContracts();
+  const registry = getReadRegistry();
   const entry = await registry.getEntry(index);
   return {
     locationHash: entry.locationHash,
@@ -152,4 +163,13 @@ async function getEntry(index) {
   };
 }
 
-module.exports = { submitProofToFVM, getEntry, parseProof };
+/**
+ * Return the total number of location entries stored on-chain.
+ * @returns {Promise<number>}
+ */
+async function getTotalEntries() {
+  const registry = getReadRegistry();
+  return Number(await registry.totalEntries());
+}
+
+module.exports = { submitProofToFVM, getEntry, getTotalEntries, parseProof };
