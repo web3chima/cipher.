@@ -7,9 +7,18 @@
   "scripts": {
     "start": "node index.js",
     "dev": "node --watch index.js",
-    "auth": "node config/telegram.js"
+    "auth": "node config/telegram.js",
+    "lit:auth": "node litAuthServer.mjs",
+    "lit:auth:dev": "node --watch litAuthServer.mjs",
+    "lit:worker": "node litAuthWorker.mjs",
+    "lit:worker:dev": "node --watch litAuthWorker.mjs"
   },
   "dependencies": {
+    "@lit-protocol/auth-helpers": "^7.0.0",
+    "@lit-protocol/auth-services": "^7.0.0",
+    "@lit-protocol/constants": "^7.0.0",
+    "@lit-protocol/lit-client": "^7.0.0",
+    "@lit-protocol/lit-node-client": "^7.0.0",
     "@helia/json": "^5.0.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
