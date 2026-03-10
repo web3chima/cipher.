@@ -1,0 +1,8 @@
+{
+  "circuit": "lidar_scan_proof",
+  "dataToEncryptHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "ciphertext": "",
+  "accessControlConditions": [],
+  "encryptedAt": "2026-03-10T15:22:27.250Z",
+  "registryAddress": "0xEdd7aa9943cdb9335EeE530DE4523E0a5221C1C9"
+}
