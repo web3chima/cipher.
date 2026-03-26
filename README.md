@@ -5,29 +5,61 @@ A privacy-preserving robotics navigation system that applies Zero Knowledge Proo
 
 ```
 cipher/
-├── __init__.py          # Package initialization and exports
-├── models.py            # Core data models with validation and serialization
-tests/
-├── __init__.py
-├── strategies.py        # Hypothesis strategies for property-based testing
-└── property/
-    ├── __init__.py
-    └── test_serialization_properties.py  # Serialization round-trip tests                              
-circuits/
-│   ├── location_proof.lurk              ← single-sensor proof (LiDAR or VSLAM)
-│   ├── fused_location_proof.lurk        ← weighted LiDAR + VSLAM fusion proof
-│   └── lidar_scan_proof.lurk            ← incremental Nova IVC over point cloud
+├── cipher/                         # Python ZK prover + sensor processing
+│   ├── models.py                   # Core data models (PointIPFS, Proof, LocationHash, ...)
+│   ├── lidar_processor.py          # LiDAR PointCloud → 128-dim SpatialFeatures
+│   ├── vslam_processor.py          # CameraFrame → 128-dim VisualFeatures
+│   ├── feature_fusion.py           # Weighted fusion → FusedFeatures
+│   └── __init__.py
+│
 ├── contracts/
-│   ├── Groth16Verifier.sol              ← BN254 pairing verifier (fill VK after setup)
-│   └── CipherLocationRegistry.sol       ← FVM registry — stores CID + verified hash
-├── cipher/
-│   └── zkp_lurk_prover.py              ← Python prover: quantise → witness → Nova → Groth16
-├── scripts/
-│   └── deploy.js                        ← Hardhat deploy to FVM Calibration/Mainnet
-└── hardhat.config.js                    ← FVM network config (chainId 314159 / 314)
-
-cipher./server/services/
-└── ipfsService.js                       ← Helia IPFS node: storeProof() / fetchProof()
+│   └── CipherLicensePayment.sol    # FVM payment contract — license purchase + commitment
+│
+├── keys/                           # ZK proving keys (gitignored in production)
+│   ├── location_proof.zkey
+│   ├── fused_location_proof.zkey
+│   └── lidar_scan_proof.zkey
+│
+├── server/                         # Node.js API server (port 3001)
+│   ├── index.js                    # Express entry point
+│   ├── routes/
+│   │   ├── keys.js                 # Session sigs + zkey decrypt
+│   │   ├── proof.js                # IPFS store + FVM submit
+│   │   ├── license.js              # License key validation + purchase
+│   │   ├── registry.js             # FVM registry queries
+│   │   └── contact.js              # Telegram group creation
+│   ├── services/
+│   │   ├── litService.js           # Lit Protocol — session sigs, zkey decrypt
+│   │   ├── fvmService.js           # FVM contract calls (ethers v6)
+│   │   ├── ipfsService.js          # Helia IPFS — storeProof / fetchProof
+│   │   ├── licenseKeyService.js    # Key generation + validation
+│   │   └── telegramService.js      # MTProto supergroup creation
+│   ├── lit-actions/
+│   │   ├── cipher_auth_action.js   # PKP auth — validates device via FVM registry
+│   │   ├── cipher_submit_action.js # PKP signing — submits proof to FVM
+│   │   └── cipher_ceremony_action.js # Trusted setup ceremony inside TEE
+│   ├── middleware/
+│   │   └── requireLicense.js       # Gates proof routes via x-cipher-license header
+│   ├── litAuthServer.mjs           # Lit session sig server (port 6380)
+│   └── litAuthWorker.mjs           # Background worker — async PKP minting (BullMQ)
+│
+├── src/                            # React frontend (Vite, port 5173)
+│   ├── App.jsx                     # Hash router
+│   ├── prototypes/                 # Page compositions
+│   └── components/
+│       ├── sections/               # Header, Hero, SDKShowcase, Footer, ...
+│       └── ui/                     # Button, ...
+│
+└── tests/                          # Python test suite
+    ├── strategies.py               # Hypothesis strategies for all models
+    ├── property/
+    │   ├── test_serialization_properties.py   # Round-trip tests for all models
+    │   ├── test_lidar_properties.py           # LiDAR processor behavioral tests
+    │   └── test_vslam_properties.py           # VSLAM processor behavioral tests
+    └── unit/                       # Unit test structure (tests not yet written)
+        ├── test_lidar_processor.py
+        ├── test_vslam_processor.py
+        └── test_feature_fusion.py
 
 ```
 ```
