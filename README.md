@@ -77,7 +77,8 @@ FVM Submission (via Lit Action + PKP)
 ## Installation
 
 ```bash
-pip install -r requirements.txt
+Prerequisites → Clone → Python env → pip install → npm install → .env setup → start server → start frontend
+
 ```
 
 ## Running Tests
