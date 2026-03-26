@@ -124,4 +124,6 @@ The project uses a dual testing approach:
 1. **Property-Based Tests**: Verify universal properties across all inputs using Hypothesis
 2. **Unit Tests**: Verify specific examples and edge cases (to be implemented)
 
-Current property tests validate serialization round-trip correctness for all data models.
+Current Property-based tests cover two areas: serialization round-trip correctness for all data models, and behavioral properties of the LiDAR and VSLAM processors.
+Unit test structure is in place — test files exist for LiDAR processor, VSLAM processor, and feature fusion. Tests are not yet written.
+
